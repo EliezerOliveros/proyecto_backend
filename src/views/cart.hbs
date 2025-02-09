@@ -1,0 +1,36 @@
+{{! src/views/cart.hbs }}
+
+<h2>Your Shopping Cart</h2>
+
+{{#if cart.items.length}}
+    <ul>
+        {{#each cart.items}}
+        <li>
+            <strong>{{product.title}}</strong> - Quantity: {{quantity}}
+            <button onclick="removeFromCart('{{product._id}}')">Remove</button>
+        </li>
+        {{/each}}
+    </ul>
+    <button onclick="checkout()">Checkout</button>
+{{else}}
+    <p>Your cart is empty.</p>
+{{/if}}
+
+<script>
+    async function removeFromCart(productId) {
+        try {
+            const response = await fetch(`/api/cart/remove/${productId}`, { method: "DELETE" });
+            if (!response.ok) throw new Error("Failed to remove product");
+            
+            alert("Product removed from cart!");
+            location.reload();
+        } catch (error) {
+            console.error("Error removing from cart:", error);
+        }
+    }
+
+    function checkout() {
+        alert("Proceeding to checkout...");
+    }
+</script>
+

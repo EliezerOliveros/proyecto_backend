@@ -1,0 +1,24 @@
+# 🚀 Node.js y dependencias
+node_modules/
+npm-debug.log*
+package-lock.json
+yarn.lock
+
+# 🚀 Archivos de entorno y credenciales (⚠️ Nunca subas tus claves)
+.env
+
+# 🚀 Archivos de compilación y caché
+public/build/
+public/dist/
+coverage/
+*.log
+
+# 🚀 Configuración de IDEs y sistema operativo
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# 🚀 Archivos de Handlebars compilados (si los usas)
+views/**/*.compiled.hbs

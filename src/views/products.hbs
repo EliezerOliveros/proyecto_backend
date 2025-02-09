@@ -1,0 +1,42 @@
+{{! src/views/products.hbs }}
+
+<h2>Available Products</h2>
+<div class="products-container">
+    {{#each products}}
+    <div class="product-card">
+        <h3>{{this.title}}</h3>
+        <p>{{this.description}}</p>
+        <p><strong>Price:</strong> ${{this.price}}</p>
+        <p><strong>Stock:</strong> {{this.stock}}</p>
+        <button id="btn-{{this._id}}" onclick="addToCart('{{this._id}}')">Add to Cart</button>
+    </div>
+    {{/each}}
+</div>
+
+<script>
+    async function addToCart(productId) {
+        try {
+            const response = await fetch(`/api/cart/add/${productId}`, { 
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ quantity: 1 }) 
+            });
+
+            if (!response.ok) throw new Error("Failed to add product");
+
+            const data = await response.json();
+            console.log("Product added to cart:", data);
+
+            // ✅ Actualiza el botón para indicar que el producto fue agregado
+            const btn = document.getElementById(`btn-${productId}`);
+            btn.innerText = "Added ✅";
+            btn.disabled = true;
+            btn.style.backgroundColor = "gray";
+
+        } catch (error) {
+            console.error("Error adding to cart:", error);
+            alert("Error adding to cart: " + error.message);
+        }
+    }
+</script>
+
